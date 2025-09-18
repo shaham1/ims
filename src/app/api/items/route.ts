@@ -29,7 +29,6 @@ export async function GET(request: NextRequest) {
       return {
         id: item.id,
         name: item.name,
-        category: item.category,
         quantity: item.quantity,
         quantity_available: item.quantity - netBorrows
       }
