@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// model Item {
+//   id          Int      @id @default(autoincrement())
+//   name        String
+//   category    String
+//   quantity    Int      @default(0)
+//   addedAt     DateTime @default(now())
+
+// }
+
+
+model Item {
+  id Int @id @default(autoincrement())
+  name String
+  // category String
+  quantity Int @default(0)
+  price Float 
+  student_id String?
+  transactions Transaction[]
+}
+
+model Transaction {
+  id Int @id @default(autoincrement())
+  student_id String
+  student_name String
+  time DateTime @default(now())
+  type String
+  quantity Int @default(1)
+  damaged Boolean @default(false)
+  item Item @relation(fields: [item_id], references: [id])
+  item_id Int
+}
+
+model Students {
+  id String @id @default(cuid())
+  student_id Int
+  name String
+  money_owed Int @default(0)
+}
